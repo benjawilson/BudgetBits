@@ -7,6 +7,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          deploy/budgetbits.zip 
+    sparse-checkout-cone-mode: false
 
     - name: Azure Login
       uses: azure/login@v1
