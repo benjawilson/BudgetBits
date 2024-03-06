@@ -6,6 +6,9 @@ jobs:
 
   build-and-deploy:
     runs-on: ubuntu-latest
+    env: 
+      working-directory: terraform/AppService
+
     steps:
 
     - uses: actions/checkout@v4
@@ -13,8 +16,6 @@ jobs:
         sparse-checkout: |
           terraform/AppService 
         sparse-checkout-cone-mode: false
-
-    - run: cd terraform/AppService
 
     - name: Azure Login
       uses: azure/login@v1
