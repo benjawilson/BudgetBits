@@ -14,12 +14,10 @@ jobs:
           terraform 
         sparse-checkout-cone-mode: false
 
-    - id: export_credentials
-      run: |
-        export ARM_CLIENT_SECRET=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientSecret | tr -d '" ')
-        export ARM_SUBSCRIPTION_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .subscriptionId | tr -d '" ')
-        export ARM_TENANT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .tenantId | tr -d '" ')
-        export ARM_CLIENT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientId | tr -d '" ')
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - uses: hashicorp/setup-terraform@v3
 
