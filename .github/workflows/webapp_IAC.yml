@@ -16,10 +16,10 @@ jobs:
 
     - id: export_credentials
       run: |
-        export ARM_CLIENT_SECRET=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientSecret)
-        export ARM_SUBSCRIPTION_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .subscriptionId)
-        export ARM_TENANT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .tenantId)
-        export ARM_CLIENT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientId)
+        export ARM_CLIENT_SECRET=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientSecret | tr -d '" ')
+        export ARM_SUBSCRIPTION_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .subscriptionId | tr -d '" ')
+        export ARM_TENANT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .tenantId | tr -d '" ')
+        export ARM_CLIENT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientId | tr -d '" ')
 
     - uses: hashicorp/setup-terraform@v3
 
