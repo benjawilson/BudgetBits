@@ -14,13 +14,13 @@ jobs:
           terraform 
         sparse-checkout-cone-mode: false
 
-    - uses: hashicorp/setup-terraform@v3
-
     - id: export_credentials
       run: export ARM_CLIENT_SECRET=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientSecret)
       run: export ARM_SUBSCRIPTION_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .subscriptionId)
       run: export ARM_TENANT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .tenantId)
       run: export ARM_CLIENT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientId)
+
+    - uses: hashicorp/setup-terraform@v3
 
     - run: terraform init
 
