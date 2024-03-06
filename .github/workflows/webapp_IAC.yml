@@ -14,6 +14,8 @@ jobs:
           terraform 
         sparse-checkout-cone-mode: false
 
+    - run: cd terraform
+
     - name: Azure Login
       uses: azure/login@v1
       with:
