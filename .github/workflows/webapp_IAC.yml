@@ -1,0 +1,32 @@
+on: [push]
+
+name: DeployWebAppIAC 
+
+jobs:
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          terraform 
+        sparse-checkout-cone-mode: false
+
+    - uses: hashicorp/setup-terraform@v3
+
+    - id: export_credentials
+      run: export ARM_CLIENT_SECRET=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientSecret)
+      run: export ARM_SUBSCRIPTION_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .subscriptionId)
+      run: export ARM_TENANT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .tenantId)
+      run: export ARM_CLIENT_ID=$(cat ${{ secrets.AZURE_CREDENTIALS }} | jq .clientId)
+
+    - run: terraform init
+
+    - id: plan
+      run: terraform plan -no-color
+
+    - run: echo ${{ steps.plan.outputs.stdout }}
+    - run: echo ${{ steps.plan.outputs.stderr }}
+    - run: echo ${{ steps.plan.outputs.exitcode }}
