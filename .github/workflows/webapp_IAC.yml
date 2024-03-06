@@ -32,5 +32,8 @@ jobs:
       working-directory: ${{env.working-directory}}
 
     - run: echo ${{ steps.plan.outputs.stdout }}
+      working-directory: ${{env.working-directory}}
     - run: echo ${{ steps.plan.outputs.stderr }}
+      working-directory: ${{env.working-directory}}
     - run: echo ${{ steps.plan.outputs.exitcode }}
+      working-directory: ${{env.working-directory}}
